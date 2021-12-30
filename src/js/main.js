@@ -35,7 +35,9 @@ const renderMoviePrefer = (eve) => {
     });
     setInLocalStorge();
   } else {
-    foundIdFavorite;
+    let foundPosition = dataMoviesPrefer.findIndex(item => item.mal_id === currentTargetId);
+    dataMoviesPrefer.splice(foundPosition,1);
+    setInLocalStorge();
   }
   paintFavorite(dataMoviesPrefer);
 };
@@ -58,7 +60,7 @@ const renderRemoveFavoriteMovie = (eve) => {
   );
   dataMoviesPrefer.splice(findId,1);
   paintFavorite(dataMoviesPrefer);
-  console.log(dataMoviesPrefer);
+  setInLocalStorge();
 };
 
 //helpers
