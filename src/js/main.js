@@ -44,10 +44,21 @@ const renderMoviePrefer = (eve) => {
 const getResetHandler = () => {
   localStorage.removeItem("data");
   dataMoviesPrefer = [];
-  const idInput = document.getElementById('id');
-  idInput.value = '';
+  const idInput = document.getElementById("id");
+  idInput.value = "";
   favoriteElement.textContent = "";
   resultsElement.textContent = "";
+};
+
+//button remove favorite
+const renderRemoveFavoriteMovie = (eve) => {
+  const currentTargetId = parseInt(eve.currentTarget.id);
+  const findId = dataMoviesPrefer.find(
+    (item) => item.mal_id === currentTargetId
+  );
+  dataMoviesPrefer.splice(findId,1);
+  paintFavorite(dataMoviesPrefer);
+  console.log(dataMoviesPrefer);
 };
 
 //helpers
@@ -68,6 +79,13 @@ const listenEventFavorite = () => {
   const divElement = document.querySelectorAll(".container");
   for (const item of divElement) {
     listenEvents(item, renderMoviePrefer, "click");
+  }
+};
+//remove favorite
+const listenEventRemove = () => {
+  const elementRemove = document.querySelectorAll(".js-remove");
+  for (const item of elementRemove) {
+    listenEvents(item, renderRemoveFavoriteMovie, "click");
   }
 };
 
@@ -119,11 +137,16 @@ const paintFavorite = (data) => {
     //create emoticon
     const createRemove = document.createElement("div");
     createRemove.className = "remove";
-    createRemove.className = "fa-solid fa-xmark";
+    const createP = document.createElement("p");
+    createP.className = "remove-movie js-remove";
+    createP.textContent = "x";
+    createP.id = `${movie.mal_id}`;
+    createRemove.appendChild(createP);
     createdDiv.appendChild(createName);
     createdDiv.appendChild(createRemove);
     favoriteElement.appendChild(createdDiv);
   }
+  listenEventRemove();
 };
 
 //get Api
