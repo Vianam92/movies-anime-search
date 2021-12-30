@@ -42,7 +42,12 @@ const renderMoviePrefer = (eve) => {
 
 //button reset
 const getResetHandler = () => {
-  console.log("funciona");
+  localStorage.removeItem("data");
+  dataMoviesPrefer = [];
+  const idInput = document.getElementById('id');
+  idInput.value = '';
+  favoriteElement.textContent = "";
+  resultsElement.textContent = "";
 };
 
 //helpers
@@ -66,26 +71,36 @@ const listenEventFavorite = () => {
   }
 };
 
+//Function reUse
+const divPainter = (movie, divClassNameOnClick, divClassNameImage) => {
+  //create div
+  const createDiv = document.createElement("div");
+  createDiv.className = divClassNameOnClick;
+  createDiv.id = `${movie.mal_id}`;
+
+  //create img
+  const createImg = document.createElement("img");
+  createImg.className = divClassNameImage;
+  createImg.src = `${movie.image_url}`;
+  createImg.alt = `${movie.title}`;
+
+  createDiv.appendChild(createImg);
+
+  return createDiv;
+};
+
 //get paint movies
 const paintMoviesSearch = (data) => {
   resultsElement.textContent = "";
   for (const movie of data) {
-    //create div
-    const createDiv = document.createElement("div");
-    createDiv.className = "container";
-    createDiv.id = `${movie.mal_id}`;
-    //create img
-    const createImg = document.createElement("img");
-    createImg.className = "images";
-    createImg.src = `${movie.image_url}`;
-    createImg.alt = `${movie.title}`;
+    const createdDiv = divPainter(movie, "container", "images");
+
     //create name
     const createName = document.createElement("h4");
     createName.className = "text";
     createName.textContent = `${movie.title}`;
-    createDiv.appendChild(createImg);
-    createDiv.appendChild(createName);
-    resultsElement.appendChild(createDiv);
+    createdDiv.appendChild(createName);
+    resultsElement.appendChild(createdDiv);
   }
   listenEventFavorite();
 };
@@ -95,14 +110,8 @@ const paintFavorite = (data) => {
   favoriteElement.textContent = "";
   //create div con click
   for (const movie of data) {
-    const createDiv = document.createElement("div");
-    createDiv.className = "div_favorite";
-    createDiv.id = `${movie.mal_id}`;
-    //create img
-    const createImg = document.createElement("img");
-    createImg.className = "images_favorite";
-    createImg.src = `${movie.image_url}`;
-    createImg.alt = `${movie.title}`;
+    const createdDiv = divPainter(movie, "div_favorite", "images_favorite");
+
     //create name
     const createName = document.createElement("h5");
     createName.className = "text";
@@ -111,10 +120,9 @@ const paintFavorite = (data) => {
     const createRemove = document.createElement("div");
     createRemove.className = "remove";
     createRemove.className = "fa-solid fa-xmark";
-    createDiv.appendChild(createImg);
-    createDiv.appendChild(createName);
-    createDiv.appendChild(createRemove);
-    favoriteElement.appendChild(createDiv);
+    createdDiv.appendChild(createName);
+    createdDiv.appendChild(createRemove);
+    favoriteElement.appendChild(createdDiv);
   }
 };
 
@@ -132,7 +140,6 @@ function getApi(ev) {
     .then((data) => {
       dataMovies = data.results;
       paintMoviesSearch(dataMovies);
-      getFromLocalStorage();
     });
 }
 
@@ -149,5 +156,7 @@ const getFromLocalStorage = () => {
   if (localStorageData !== null) {
     dataMoviesPrefer = JSON.parse(localStorageData);
   }
+  //get paint
+  paintFavorite(dataMoviesPrefer);
 };
-
+getFromLocalStorage();
