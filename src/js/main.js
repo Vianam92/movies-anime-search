@@ -24,7 +24,6 @@ function getApi(ev) {
     .then((data) => {
       dataMovies = data.results;
       renderMoviesSearch(dataMovies);
-      getFromLocalStorage();
     });
 }
 
@@ -32,6 +31,7 @@ function getApi(ev) {
 const renderMoviesSearch = (data) => {
   resultsElement.textContent = "";
   for (const movie of data) {
+    console.log(movie);
     //create div
     const createDiv = document.createElement("div");
     createDiv.className = "container";
@@ -50,24 +50,30 @@ const renderMoviesSearch = (data) => {
     resultsElement.appendChild(createDiv);
   }
   listenEventFavorite();
-  setInLocalStorge();
 };
 
-//get pain movies prefer
+//get movies prefer
 const renderMoviePrefer = (eve) => {
-  const id = eve.currentTarget.id;
-  const currentTarget = eve.currentTarget;
+  const currentTargetId = eve.currentTarget.id;
+  //const currentTarget = eve.currentTarget;
   //1er busco el id en mi array favorite
-  let foundIdFavorite = dataMoviesPrefer.find((item) => item.id === id);
+  let foundIdFavorite = dataMoviesPrefer.find(item => item.mal_id === currentTargetId);
   //findIdFavorite dara undefine pq no tiene aun datos
   if (foundIdFavorite === undefined) {
-    let foundIdData = dataMovies.find((item) => item.id === id);
-    console.log("estoy entrando");
+    /*let foundIdData = dataMovies.find(item => item.mal_id === currentTargetId);
     dataMoviesPrefer.push({
-      //imageUrl: foundIdData.image_url,
+      imageUrl: foundIdData.image_url,
       title: foundIdData.title,
       id: foundIdData.mal_id,
-    });
+    });*/
+    for (let item of dataMovies) {
+      dataMoviesPrefer.push({
+        imageUrl: item.image_url,
+        title: item.title,
+        id: item.mal_id,
+      });
+      setInLocalStorge();
+    }
   } else {
     foundIdFavorite;
   }
@@ -119,4 +125,4 @@ const getFromLocalStorage = () => {
   }
 };
 
-getFromLocalStorage();
+//getFromLocalStorage();
