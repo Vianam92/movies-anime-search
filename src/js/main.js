@@ -23,15 +23,15 @@ function getApi(ev) {
     })
     .then((data) => {
       dataMovies = data.results;
-      renderMoviesSearch();
-      paintMovierPrefer();
+      renderMoviesSearch(dataMovies);
+      getFromLocalStorage();
     });
 }
 
 //get paint movies
-const renderMoviesSearch = () => {
+const renderMoviesSearch = (data) => {
   resultsElement.textContent = "";
-  for (const movie of dataMovies) {
+  for (const movie of data) {
     //create div
     const createDiv = document.createElement("div");
     createDiv.className = "container";
@@ -49,13 +49,29 @@ const renderMoviesSearch = () => {
     createDiv.appendChild(createName);
     resultsElement.appendChild(createDiv);
   }
+  listenEventFavorite();
+  setInLocalStorge();
 };
 
 //get pain movies prefer
-const paintMovierPrefer = () =>{
-favoriteElement.textContent = "";
-
-}
+const renderMoviePrefer = (eve) => {
+  const id = eve.currentTarget.id;
+  const currentTarget = eve.currentTarget;
+  //1er busco el id en mi array favorite
+  let foundIdFavorite = dataMoviesPrefer.find((item) => item.id === id);
+  //findIdFavorite dara undefine pq no tiene aun datos
+  if (foundIdFavorite === undefined) {
+    let foundIdData = dataMovies.find((item) => item.id === id);
+    console.log("estoy entrando");
+    dataMoviesPrefer.push({
+      //imageUrl: foundIdData.image_url,
+      title: foundIdData.title,
+      id: foundIdData.mal_id,
+    });
+  } else {
+    foundIdFavorite;
+  }
+};
 
 //get Value Input
 const getValueInputHandler = () => {
@@ -63,6 +79,7 @@ const getValueInputHandler = () => {
   return valueInput;
 };
 
+//button reset
 const getResetHandler = () => {
   console.log("funciona");
 };
@@ -72,12 +89,34 @@ const listenEvents = (element, handler, eventType) => {
   element.addEventListener(eventType, handler);
 };
 
-//lister
+//listeners
 //input
 listenEvents(inputElement, getValueInputHandler, "keyup");
 //buscar
 listenEvents(btnElement, getApi, "click");
 //reset
 listenEvents(resetElement, getResetHandler, "click");
+//favorite
+const listenEventFavorite = () => {
+  const divElement = document.querySelectorAll(".container");
+  for (const item of divElement) {
+    listenEvents(item, renderMoviePrefer, "click");
+  }
+};
 
-renderMoviesSearch();
+//local Storage
+//guardo en el local
+const setInLocalStorge = () => {
+  const stringifyData = JSON.stringify(dataMovies);
+  localStorage.setItem("data", stringifyData);
+};
+
+// lo recupero
+const getFromLocalStorage = () => {
+  const localStorageData = localStorage.getItem("data");
+  if (localStorageData !== null) {
+    dataMovies = JSON.parse(localStorageData);
+  }
+};
+
+getFromLocalStorage();
