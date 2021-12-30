@@ -18,7 +18,7 @@ const getValueInputHandler = () => {
 
 //get movies prefer
 const renderMoviePrefer = (eve) => {
-  const currentTargetId = eve.currentTarget.id;
+  const currentTargetId = parseInt(eve.currentTarget.id);
   //const currentTarget = eve.currentTarget;
   //1er busco el id en mi array favorite
   let foundIdFavorite = dataMoviesPrefer.find(
@@ -29,13 +29,15 @@ const renderMoviePrefer = (eve) => {
     let foundId = dataMovies.find((item) => item.mal_id === currentTargetId);
     //si no esta la agrego
     dataMoviesPrefer.push({
-      id: foundId.mal_id,
-      name: foundId.title,
-      image: foundId.image_url,
+      mal_id: foundId.mal_id,
+      title: foundId.title,
+      image_url: foundId.image_url,
     });
+    setInLocalStorge();
   } else {
     foundIdFavorite;
   }
+  paintFavorite(dataMoviesPrefer);
 };
 
 //button reset
@@ -65,7 +67,7 @@ const listenEventFavorite = () => {
 };
 
 //get paint movies
-const renderMoviesSearch = (data) => {
+const paintMoviesSearch = (data) => {
   resultsElement.textContent = "";
   for (const movie of data) {
     //create div
@@ -129,15 +131,15 @@ function getApi(ev) {
     })
     .then((data) => {
       dataMovies = data.results;
-      renderMoviesSearch(dataMovies);
-      paintFavorite(dataMoviesPrefer);
+      paintMoviesSearch(dataMovies);
+      getFromLocalStorage();
     });
 }
 
 //local Storage
 //guardo en el local
 const setInLocalStorge = () => {
-  const stringifyData = JSON.stringify(dataMovies);
+  const stringifyData = JSON.stringify(dataMoviesPrefer);
   localStorage.setItem("data", stringifyData);
 };
 
@@ -145,7 +147,7 @@ const setInLocalStorge = () => {
 const getFromLocalStorage = () => {
   const localStorageData = localStorage.getItem("data");
   if (localStorageData !== null) {
-    dataMovies = JSON.parse(localStorageData);
+    dataMoviesPrefer = JSON.parse(localStorageData);
   }
 };
-//getFromLocalStorage();
+
