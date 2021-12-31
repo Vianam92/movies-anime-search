@@ -19,7 +19,9 @@ const getValueInputHandler = () => {
 //renders
 //get movies prefer
 const renderMoviePrefer = (eve) => {
-  const currentTargetId = parseInt(eve.currentTarget.id);
+  const currentTargetId = parseInt(
+    eve.currentTarget.getAttribute("data-mal_id")
+  );
   const currentTarget = eve.currentTarget;
   //1er busco el id en mi array favorite
   let foundIdFavorite = dataMoviesPrefer.find(
@@ -46,15 +48,15 @@ const renderMoviePrefer = (eve) => {
   }
   paintFavorite(dataMoviesPrefer);
 };
-//button remove favorite
-const renderRemoveFavoriteMovie = (eve) => {
-  const currentTargetId = parseInt(eve.currentTarget.id);
-  const findId = dataMoviesPrefer.find(
-    (item) => item.mal_id === currentTargetId
-  );
-  dataMoviesPrefer.splice(findId, 1);
-  paintFavorite(dataMoviesPrefer);
-  setInLocalStorge();
+
+
+const validarFavoriteInMovieStyles = () => {
+  const foundIdPrefer = dataMoviesPrefer.filter((item) => item.mal_id);
+  foundIdPrefer.forEach((x) => {
+    document
+      .getElementById("res_" + x.mal_id)
+      .classList.add("section_results--styles");
+  });
 };
 
 //button reset
@@ -67,9 +69,16 @@ const getResetHandler = () => {
   resultsElement.textContent = "";
 };
 
-const getStyleInMovieLoad = () =>{
-  console.log(funciona);
-}
+//button remove favorite
+const renderRemoveFavoriteMovie = (eve) => {
+  const currentTargetId = parseInt(eve.currentTarget.id);
+  const findId = dataMoviesPrefer.find(
+    (item) => item.mal_id === currentTargetId
+  );
+  dataMoviesPrefer.splice(findId, 1);
+  paintFavorite(dataMoviesPrefer);
+  setInLocalStorge();
+};
 
 //helpers
 const listenEvents = (element, handler, eventType) => {
@@ -97,11 +106,12 @@ const listenEventRemove = () => {
 };
 
 //Function reUse
-const divPainter = (movie, divClassNameOnClick, divClassNameImage) => {
+const divPainter = (movie, divClassNameOnClick, divClassNameImage, type) => {
   //create div
   const createDiv = document.createElement("div");
   createDiv.className = divClassNameOnClick;
-  createDiv.id = `${movie.mal_id}`;
+  createDiv.id = `${type}_${movie.mal_id}`;
+  createDiv.setAttribute("data-mal_id", movie.mal_id);
 
   //create img
   const createImg = document.createElement("img");
@@ -118,7 +128,7 @@ const divPainter = (movie, divClassNameOnClick, divClassNameImage) => {
 const paintMoviesSearch = (data) => {
   resultsElement.textContent = "";
   for (const movie of data) {
-    const createdDiv = divPainter(movie, "js-container", "images");
+    const createdDiv = divPainter(movie, "js-container", "images", "res");
     //create name
     const createName = document.createElement("h4");
     createName.className = "text";
@@ -127,17 +137,8 @@ const paintMoviesSearch = (data) => {
     resultsElement.appendChild(createdDiv);
   }
   listenEventFavorite();
-  //validarFavoriteInMovieStyles();
+  validarFavoriteInMovieStyles();
 };
-
-/*const validarFavoriteInMovieStyles = () => {
-  const element = document.querySelector(".js-container");
-  const foundIdPrefer = dataMoviesPrefer.filter((item) => item.mal_id);
-  const foundData = dataMovies.filter((item) => item.mal_id === foundIdPrefer.mal_id);
-  if (foundData === foundIdPrefer) {
-    element.classList.add("section_results--styles");
-  }
-};*/
 
 //paint favorites
 const paintFavorite = (data) => {
@@ -147,7 +148,8 @@ const paintFavorite = (data) => {
     const createdDiv = divPainter(
       movie,
       "div_favorite section_favorite--styles",
-      "images_favorite"
+      "images_favorite",
+      "fav"
     );
     //create name
     const createName = document.createElement("h5");
@@ -159,7 +161,7 @@ const paintFavorite = (data) => {
     const createP = document.createElement("p");
     createP.className = "remove-movie js-remove";
     createP.textContent = "x";
-    createP.id = `${movie.mal_id}`;
+    // createP.id = `favorite_${movie.mal_id}`;
     createRemove.appendChild(createP);
     createdDiv.appendChild(createName);
     createdDiv.appendChild(createRemove);
