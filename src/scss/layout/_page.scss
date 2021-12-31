@@ -2,6 +2,16 @@
   display:flex;
   flex-direction: row;
 }
+.section_results{
+  width:100%;
+  display:flex;
+  flex-wrap: wrap;
+justify-content: space-around;
+  &--styles{
+    width:250px;
+    background-color:blueviolet;
+  }
+}
 .remove{
   width:100%;
   &-movie{

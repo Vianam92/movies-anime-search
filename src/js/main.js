@@ -16,10 +16,12 @@ const getValueInputHandler = () => {
   return valueInput;
 };
 
+//renders
 //get movies prefer
 const renderMoviePrefer = (eve) => {
   const currentTargetId = parseInt(eve.currentTarget.id);
-  //const currentTarget = eve.currentTarget;
+  const currentTarget = eve.currentTarget;
+  console.log(currentTarget);
   //1er busco el id en mi array favorite
   let foundIdFavorite = dataMoviesPrefer.find(
     (item) => item.mal_id === currentTargetId
@@ -33,13 +35,27 @@ const renderMoviePrefer = (eve) => {
       title: foundId.title,
       image_url: foundId.image_url,
     });
+    currentTarget.classList.add("section_results--styles");
     setInLocalStorge();
   } else {
-    let foundPosition = dataMoviesPrefer.findIndex(item => item.mal_id === currentTargetId);
-    dataMoviesPrefer.splice(foundPosition,1);
+    let foundPosition = dataMoviesPrefer.findIndex(
+      (item) => item.mal_id === currentTargetId
+    );
+    dataMoviesPrefer.splice(foundPosition, 1);
+    currentTarget.classList.remove("section_results--styles");
     setInLocalStorge();
   }
   paintFavorite(dataMoviesPrefer);
+};
+//button remove favorite
+const renderRemoveFavoriteMovie = (eve) => {
+  const currentTargetId = parseInt(eve.currentTarget.id);
+  const findId = dataMoviesPrefer.find(
+    (item) => item.mal_id === currentTargetId
+  );
+  dataMoviesPrefer.splice(findId, 1);
+  paintFavorite(dataMoviesPrefer);
+  setInLocalStorge();
 };
 
 //button reset
@@ -52,25 +68,12 @@ const getResetHandler = () => {
   resultsElement.textContent = "";
 };
 
-//button remove favorite
-const renderRemoveFavoriteMovie = (eve) => {
-  const currentTargetId = parseInt(eve.currentTarget.id);
-  const findId = dataMoviesPrefer.find(
-    (item) => item.mal_id === currentTargetId
-  );
-  dataMoviesPrefer.splice(findId,1);
-  paintFavorite(dataMoviesPrefer);
-  setInLocalStorge();
-};
-
 //helpers
 const listenEvents = (element, handler, eventType) => {
   element.addEventListener(eventType, handler);
 };
 
 //listeners
-//input
-listenEvents(inputElement, getValueInputHandler, "keyup");
 //buscar
 listenEvents(btnElement, getApi, "click");
 //reset
@@ -78,7 +81,7 @@ listenEvents(resetElement, getResetHandler, "click");
 
 //favorite
 const listenEventFavorite = () => {
-  const divElement = document.querySelectorAll(".container");
+  const divElement = document.querySelectorAll(".js-container");
   for (const item of divElement) {
     listenEvents(item, renderMoviePrefer, "click");
   }
@@ -113,8 +116,7 @@ const divPainter = (movie, divClassNameOnClick, divClassNameImage) => {
 const paintMoviesSearch = (data) => {
   resultsElement.textContent = "";
   for (const movie of data) {
-    const createdDiv = divPainter(movie, "container", "images");
-
+    const createdDiv = divPainter(movie, "js-container", "images");
     //create name
     const createName = document.createElement("h4");
     createName.className = "text";
@@ -122,7 +124,20 @@ const paintMoviesSearch = (data) => {
     createdDiv.appendChild(createName);
     resultsElement.appendChild(createdDiv);
   }
+  validarFavoriteInMovieStyles();
   listenEventFavorite();
+};
+
+const validarFavoriteInMovieStyles = () => {
+  const foundIdPrefer = dataMoviesPrefer.filter((item) => item.mal_id);
+  const foundIdMovies = dataMovies.find((item) => item.mal_id);
+  if (foundIdPrefer === foundIdMovies) {
+    const element = document.querySelector(".js-container");
+    if (!element.classList.contains("section_results--styles")){
+      element.classList.add("section_results--styles");
+    }
+  }
+  paintMoviesSearch(dataMovies);
 };
 
 //paint favorites
@@ -130,7 +145,7 @@ const paintFavorite = (data) => {
   favoriteElement.textContent = "";
   //create div con click
   for (const movie of data) {
-    const createdDiv = divPainter(movie, "div_favorite", "images_favorite");
+    const createdDiv = divPainter(movie, "div_favorite section_favorite--styles", "images_favorite");
 
     //create name
     const createName = document.createElement("h5");
