@@ -21,7 +21,6 @@ const getValueInputHandler = () => {
 const renderMoviePrefer = (eve) => {
   const currentTargetId = parseInt(eve.currentTarget.id);
   const currentTarget = eve.currentTarget;
-  console.log(currentTarget);
   //1er busco el id en mi array favorite
   let foundIdFavorite = dataMoviesPrefer.find(
     (item) => item.mal_id === currentTargetId
@@ -68,6 +67,10 @@ const getResetHandler = () => {
   resultsElement.textContent = "";
 };
 
+const getStyleInMovieLoad = () =>{
+  console.log(funciona);
+}
+
 //helpers
 const listenEvents = (element, handler, eventType) => {
   element.addEventListener(eventType, handler);
@@ -78,7 +81,6 @@ const listenEvents = (element, handler, eventType) => {
 listenEvents(btnElement, getApi, "click");
 //reset
 listenEvents(resetElement, getResetHandler, "click");
-
 //favorite
 const listenEventFavorite = () => {
   const divElement = document.querySelectorAll(".js-container");
@@ -124,29 +126,29 @@ const paintMoviesSearch = (data) => {
     createdDiv.appendChild(createName);
     resultsElement.appendChild(createdDiv);
   }
-  validarFavoriteInMovieStyles();
   listenEventFavorite();
+  //validarFavoriteInMovieStyles();
 };
 
-const validarFavoriteInMovieStyles = () => {
+/*const validarFavoriteInMovieStyles = () => {
+  const element = document.querySelector(".js-container");
   const foundIdPrefer = dataMoviesPrefer.filter((item) => item.mal_id);
-  const foundIdMovies = dataMovies.find((item) => item.mal_id);
-  if (foundIdPrefer === foundIdMovies) {
-    const element = document.querySelector(".js-container");
-    if (!element.classList.contains("section_results--styles")){
-      element.classList.add("section_results--styles");
-    }
+  const foundData = dataMovies.filter((item) => item.mal_id === foundIdPrefer.mal_id);
+  if (foundData === foundIdPrefer) {
+    element.classList.add("section_results--styles");
   }
-  paintMoviesSearch(dataMovies);
-};
+};*/
 
 //paint favorites
 const paintFavorite = (data) => {
   favoriteElement.textContent = "";
   //create div con click
   for (const movie of data) {
-    const createdDiv = divPainter(movie, "div_favorite section_favorite--styles", "images_favorite");
-
+    const createdDiv = divPainter(
+      movie,
+      "div_favorite section_favorite--styles",
+      "images_favorite"
+    );
     //create name
     const createName = document.createElement("h5");
     createName.className = "text";
