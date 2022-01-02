@@ -61,7 +61,6 @@ const renderMoviePrefer = (eve) => {
     setInLocalStorge();
   }
   paintFavorite(dataMoviesPrefer);
-  //paintMoviesSearch(dataMovies);
 };
 
 const foundPositionMoviesPrefer = (currentTarget, id) => {
@@ -153,18 +152,12 @@ const paintMoviesSearch = (data) => {
       "https://via.placeholder.com/210x295/ffffff/666666/?text=TV",
       "res"
     );
-    //const isFav = addOrRemoveClass(dataMoviesPrefer);
     //create name
     const createName = document.createElement("h4");
     createName.className = "article_results--text";
     createName.textContent = `${movie.title}`;
     createdDiv.appendChild(createName);
     resultsElement.appendChild(createdDiv);
-    /*if (isFav) {
-      createdDiv.classList.add("article_results--styles");
-    } else {
-      createdDiv.classList.remove("article_results--styles");
-    }*/
     listenEventFavorite();
     validarFavoriteInMovieStyles();
   }
