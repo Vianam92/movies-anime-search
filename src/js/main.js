@@ -61,16 +61,7 @@ const renderMoviePrefer = (eve) => {
     setInLocalStorge();
   }
   paintFavorite(dataMoviesPrefer);
-  paintMoviesSearch(dataMovies);
-};
-
-const addOrRemoveClass = (dataM) => {
-  const foundId = dataMoviesPrefer.find((data) => data.mal_id === dataM);
-  if (foundId === undefined) {
-    return false;
-  } else {
-    return true;
-  }
+  //paintMoviesSearch(dataMovies);
 };
 
 const foundPositionMoviesPrefer = (currentTarget, id) => {
@@ -78,17 +69,6 @@ const foundPositionMoviesPrefer = (currentTarget, id) => {
   dataMoviesPrefer.splice(foundPosition, 1);
   currentTarget.classList.remove("article_results--styles");
 };
-
-/*const removeStyleFromFavorite = (id) => {
-  const foundFav = dataMovies.findIndex((item) => parseInt(item.mal_id) === id);
-  if (foundFav) {
-    for (const data of dataMovies) {
-      document
-        .getElementById("res_" + data.mal_id)
-        .classList.remove("article_results--styles");
-    }
-  }
-};*/
 
 const validarFavoriteInMovieStyles = () => {
   const foundIdPrefer = dataMoviesPrefer.filter((item) => item.mal_id);
@@ -173,20 +153,21 @@ const paintMoviesSearch = (data) => {
       "https://via.placeholder.com/210x295/ffffff/666666/?text=TV",
       "res"
     );
-    const isFav = addOrRemoveClass(dataMovies);
+    //const isFav = addOrRemoveClass(dataMoviesPrefer);
     //create name
     const createName = document.createElement("h4");
     createName.className = "article_results--text";
     createName.textContent = `${movie.title}`;
     createdDiv.appendChild(createName);
     resultsElement.appendChild(createdDiv);
-    if (isFav) {
+    /*if (isFav) {
       createdDiv.classList.add("article_results--styles");
     } else {
       createdDiv.classList.remove("article_results--styles");
-    }
-  listenEventFavorite();
-  validarFavoriteInMovieStyles();
+    }*/
+    listenEventFavorite();
+    validarFavoriteInMovieStyles();
+  }
 };
 
 //paint favorites
