@@ -1,3 +1,8 @@
+$colorFamily:'Playfair Display',
+serif;
+$colorsBackground: rgba(247, 150, 192, 1);
+$colorsLinearBack:rgba(118, 174, 241, 1);
+
 @mixin inputBtns() {
     width: 130px;
     height: 40px;
@@ -12,20 +17,20 @@
     transition: all 0.3s ease;
     position: relative;
     display: inline-block;
-     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-     7px 7px 20px 0px rgba(0,0,0,.1),
-     4px 4px 5px 0px rgba(0,0,0,.1);
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+        7px 7px 20px 0px rgba(0, 0, 0, .1),
+        4px 4px 5px 0px rgba(0, 0, 0, .1);
     outline: none;
     margin: 5px;
     transition: border linear 1s;
 }
 
 @mixin containers() {
-    background: rgb(247,150,192);
-background: radial-gradient(circle, rgba(247,150,192,1) 0%, rgba(118,174,241,1) 100%);
-    overflow:auto;
+    background: $colorsBackground;
+    background: radial-gradient(circle, $colorsBackground 0%, $colorsLinearBack 100%);
+    overflow: auto;
     height: 500px;
-    margin: 10px;
+    margin: 15px;
 }
 
 @mixin containerTitle() {
@@ -34,4 +39,5 @@ background: radial-gradient(circle, rgba(247,150,192,1) 0%, rgba(118,174,241,1) 
     color: white;
     text-align: center;
     text-decoration: underline;
+    font-family: $colorFamily;
 }
