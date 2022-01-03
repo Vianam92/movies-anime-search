@@ -1,6 +1,7 @@
 # Ejercicio práctico de JavaScript.
 
-Este ejercicio consiste en programar una **página web desde cero**, donde su función principal es prácticar todo lo visto en el módulo de Javascript, en esta ocasión se encuentra el foco del proyecto en hacer una aplicación web, donde la usuaria pueda interactuar con ella, donde haga peticiones, se muestre nueva información, guarde favoritos y si ya no son de su gusto los pueda borrar, ademas de que los favoritos se guarden en el Local de su navegador 💚. 
+El ejercicio consiste en desarrollar una aplicación web de búsqueda de series de anime, que nos permite des/marcar las series como favoritas y guardarlas en local storage.
+El ejercicio también tiene una parte de maquetación con HTML y Sass.
 
 En la evaluación hay 3 tipos de ficheros y carpetas:
 
@@ -15,10 +16,12 @@ He llegado a la solución de este ejercicio aplicando todo lo visto en el segund
 - Eventos
 - Estructura de datos
 - Promesas
+- Dom avanzado
 - planificación 
 - localStorage
 - Ademas ... de aplicar todo lo visto en el modulo 1 - maquetación.
-## ¿Qué encontrarás? 📖
+
+## ¿Qué encontrarás?
 
 Esta página interactiva consiste en:
 
@@ -28,7 +31,7 @@ Esta página interactiva consiste en:
     - Tener un registro de tus series favoritas.
     - Resetear si ya no te gustan estas series.
     - Volver a empezar. 
-    - Todo esto utilizando toda la tematica de JavaScript
+    - Todo esto utilizando toda la temática de JavaScript
 1. Maquetación Web: 
     - Una página web con diseño responsive, movileFirst.
 2. Estilos CSS:
