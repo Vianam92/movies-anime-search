@@ -28,13 +28,17 @@ $colorsLinearBack:rgba(118, 174, 241, 1);
 @mixin containers() {
     background: $colorsBackground;
     background: radial-gradient(circle, $colorsBackground 0%, $colorsLinearBack 100%);
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+        7px 7px 20px 0px rgba(0, 0, 0, .1),
+        4px 4px 5px 0px rgba(0, 0, 0, .1);
+    outline: none;
     overflow: auto;
     height: 500px;
     margin: 15px;
 }
 
 @mixin containerTitle() {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin: 10px;
     color: white;
     text-align: center;
