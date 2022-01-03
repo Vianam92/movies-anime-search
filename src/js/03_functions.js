@@ -20,14 +20,16 @@ const renderMoviePrefer = (eve) => {
       title: foundId.title,
       image_url: foundId.image_url,
     });
-    currentTarget.classList.add("article_results--styles");
+    currentTarget.classList.add("article_results_styles");
+    currentTarget.lastChild.classList.add("article_results_styles--text");
     setInLocalStorge();
   } else {
     let foundPosition = dataMoviesPrefer.findIndex(
       (item) => item.mal_id === currentTargetId
     );
     dataMoviesPrefer.splice(foundPosition, 1);
-    currentTarget.classList.remove("article_results--styles");
+    currentTarget.classList.remove("article_results_styles");
+    currentTarget.lastChild.classList.remove("article_results_styles--text");
     setInLocalStorge();
   }
   paintFavorite(dataMoviesPrefer);
@@ -45,18 +47,18 @@ const renderRemoveFavoriteMovie = (eve) => {
   setInLocalStorge();
 };
 
-const removeStyleSearch = (data) => {
+/*const removeStyleSearch = (data) => {
   const foundFav = dataMoviesPrefer.find((item) => item.mal_id === data.mal_id);
   return foundFav;
-};
+};*/
 
 const validarFavoriteInMovieStyles = () => {
   const foundIdPrefer = dataMoviesPrefer.filter((item) => item.mal_id);
-
   foundIdPrefer.forEach((x) => {
     document
       .getElementById("res_" + x.mal_id)
-      .classList.add("article_results--styles");
+      .classList.add("article_results_styles");
+    document.getElementById("res_" + x.mal_id).lastChild.classList.add('article_results_styles--text');
   });
 };
 

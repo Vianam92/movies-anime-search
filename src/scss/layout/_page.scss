@@ -110,9 +110,13 @@
 
   &--text {
     color: rgba(49, 110, 244, 1);
-    width: 100px;
+    width: 120px;
     text-align: center;
     margin: 10px;
+    font-size: 0.8rem;
+    @media all and(min-width:768px){
+      font-size: 1rem;
+    }
   }
 
   &_x {
@@ -154,9 +158,12 @@
   }
 }
 
-.article_results--styles {
-  color: rgb(105, 145, 230);
+.article_results_styles {
   background-color: #f0ecfc7a;
   background-image: linear-gradient(315deg, #f0ecfc 0%, #c797eb 74%);
-  
+  border-radius: 25px;
+  padding-top: 10px;
+  &--text{
+    color:rgba(49, 110, 244, 1);
+  }
 }
