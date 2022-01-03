@@ -16,7 +16,7 @@ He llegado a la solución de este ejercicio aplicando todo lo visto en el segund
 - Eventos
 - Estructura de datos
 - Promesas
-- -Dom avanzado
+- Dom avanzado
 - planificación 
 - localStorage
 - Ademas ... de aplicar todo lo visto en el modulo 1 - maquetación.
@@ -31,7 +31,7 @@ Esta página interactiva consiste en:
     - Tener un registro de tus series favoritas.
     - Resetear si ya no te gustan estas series.
     - Volver a empezar. 
-    - Todo esto utilizando toda la tematica de JavaScript
+    - Todo esto utilizando toda la temática de JavaScript
 1. Maquetación Web: 
     - Una página web con diseño responsive, movileFirst.
 2. Estilos CSS:
