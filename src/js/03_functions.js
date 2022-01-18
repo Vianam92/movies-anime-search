@@ -7,6 +7,7 @@ const renderMoviePrefer = (eve) => {
     eve.currentTarget.getAttribute("data-mal_id")
   );
   const currentTarget = eve.currentTarget;
+
   //1er busco el id en mi array favorite
   let foundIdFavorite = dataMoviesPrefer.find(
     (item) => item.mal_id === currentTargetId
@@ -32,12 +33,12 @@ const renderMoviePrefer = (eve) => {
     currentTarget.lastChild.classList.remove("article_results_styles--text");
     setInLocalStorge();
   }
-  paintFavorite(dataMoviesPrefer);
+ paintFavorite(dataMoviesPrefer);
 };
 
 //button remove favorite
 const renderRemoveFavoriteMovie = (eve) => {
-  const currentTargetId = parseInt(eve.currentTarget.id);
+  const currentTargetId = parseInt(eve.currentTarget.dataset.mal_id);
   const findId = dataMoviesPrefer.find(
     (item) => item.mal_id === currentTargetId
   );
@@ -46,11 +47,6 @@ const renderRemoveFavoriteMovie = (eve) => {
   paintMoviesSearch(dataMovies);
   setInLocalStorge();
 };
-
-/*const removeStyleSearch = (data) => {
-  const foundFav = dataMoviesPrefer.find((item) => item.mal_id === data.mal_id);
-  return foundFav;
-};*/
 
 const validarFavoriteInMovieStyles = () => {
   const foundIdPrefer = dataMoviesPrefer.filter((item) => item.mal_id);

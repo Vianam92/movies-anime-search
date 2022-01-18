@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
 
+  justify-content: center;
+
   &_title {
     padding: 20px;
     color: rgb(22, 9, 240);
@@ -69,6 +71,7 @@
   &_favorite {
     @include containers();
     width: 350px;
+    flex-direction: column;
 
     &--title {
       @include containerTitle();
@@ -83,11 +86,11 @@
   &_results {
     @include containers();
     width: 100%;
+    flex-direction: column;
 
     &--title {
       @include containerTitle();
     }
-
     &--movies {
       display: flex;
       flex-wrap: wrap;
@@ -158,18 +161,23 @@
   text-align: center;
   margin: 10px 5px;
   width: 100px;
-
+  @media all and(min-width:768px){
+  width: 200px;
+  }
   &--img {
     width: 90px;
     object-fit: cover;
     border: 3px solid rgb(238, 201, 201);
+    @media all and(min-width:768px){
+      width: 150px;
+    }
   }
 
   &--text {
     color: white;
-    width: 80px;
+    width: 100%;
     text-align: center;
-    margin: 10px;
+    padding:5px;
     color: rgb(22, 9, 240);
   }
 }

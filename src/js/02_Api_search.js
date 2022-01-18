@@ -9,7 +9,9 @@ const getValueInputHandler = () => {
 //get Api
 function getApi(ev) {
   ev.preventDefault();
-  fetch(`https://api.jikan.moe/v3/search/anime?q=${getValueInputHandler()}`)
+  fetch(
+    `https://api.jikan.moe/v3/search/anime?q=${getValueInputHandler()}?page=1`
+  )
     .then((response) => {
       //validación
       if (!response.ok) {
@@ -18,9 +20,13 @@ function getApi(ev) {
       return response.json();
     })
     .then((data) => {
-      dataMovies = data.results;
+      dataMovies = data.results.map((info) => {
+        return {
+          mal_id: info.mal_id,
+          title: info.title,
+          image_url: info.image_url,
+        };
+      });
       paintMoviesSearch(dataMovies);
     });
 }
-
-

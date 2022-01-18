@@ -10,8 +10,6 @@ const painter = (
   type
 ) => {
   //create div
-  //let createdCont = "";
-  //let createdName = "";
   const createCont = document.createElement("article");
   createCont.className = classNameOnClick;
   createCont.id = `${type}_${movie.mal_id}`;
@@ -25,15 +23,6 @@ const painter = (
   const createName = document.createElement("h4");
   createName.className = classNameTitle;
   createName.textContent = `${movie.title}`;
-  //evaluo si mi funcion se cumple para agregar o no la clase.
-  /*if (removeStyleSearch(dataMovies)) {
-    createdCont = "article_results_styles";
-    createdName = "article_results_styles--text";
-    createCont.classList.add(`${createdCont}`);
-    createName.classList.add(`${createdName}`);
-    createdCont = "";
-    createdName = "";
-  }*/
   //evaluo el valor de img
   if (createImg.src === null) {
     createImg.src = placeholder;

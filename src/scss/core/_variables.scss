@@ -35,6 +35,7 @@ $colorsLinearBack:rgba(118, 174, 241, 1);
     overflow: auto;
     height: 500px;
     margin: 15px;
+    display:flex;
 }
 
 @mixin containerTitle() {
