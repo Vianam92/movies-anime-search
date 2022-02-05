@@ -7,7 +7,7 @@ En la evaluación hay 3 tipos de ficheros y carpetas:
 
 - Los ficheros que están sueltos en la raíz del repositorio, como gulpfile.js, package.json... Son la configuración del proyecto y no necesitamos modificarlos.
 - La carpeta `src/`: son los ficheros de la aplicación web, como HTML, JS y SCSS, en esta carpeta se codeo todos los nuevos ficheros.
-- Las carpetas `public/` y `docs/`, que son generadas automáticamente cuando arrancamos el proyecto. Para arrancar el proyecto, 🧠 recuerda  en consola poner `npm install` y luego para correrlo en tu pc `npm start`. El Kit lee los ficheros que hay dentro de `src/`, los procesa y los genera dentro de `public/` y `docs/`.
+- Las carpetas `public/` y `docs/`, que son generadas automáticamente cuando arrancamos el proyecto. Para arrancar el proyecto, recuerda  en consola poner `npm install` y luego para correrlo en tu pc `npm start`. El Kit lee los ficheros que hay dentro de `src/`, los procesa y los genera dentro de `public/` y `docs/`.
 
 He llegado a la solución de este ejercicio aplicando todo lo visto en el segundo módulo del bootcamp, pasando por temas como:  
 
